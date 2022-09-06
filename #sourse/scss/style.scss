@@ -13,6 +13,10 @@
   src: url(../../files/fonts/Major.ttf) format('truetype');
 }
 @font-face {
+  font-family: 'Azeret';
+  src: url(../../files/fonts/Major.ttf) format('truetype');
+}
+@font-face {
   font-family: 'Chequers';
   src: url(../../files/fonts/Chequers.otf) format('opentype');
 }
@@ -116,6 +120,7 @@ html {
     .plusses {
       display: flex;
       justify-content: center;
+      margin-bottom: 120px;
       .logo-wrapper {
         justify-self: center;
         border: 1px solid #FFFFFF;
@@ -148,7 +153,8 @@ html {
             height: 100%;
             width: 100%;
             .letter {
-              font-family: Major;
+              font-family: Azeret;
+              font-weight: light;
               font-size: 30px;
               font-weight: 400;
               line-height: 33px;
@@ -181,6 +187,8 @@ html {
           text-align: center;
           white-space: nowrap;
           z-index: 2;
+          user-select: none;
+          box-sizing: content-box;
           // &-1 {
           //   right: 610px;
           //   top: 70px;
@@ -233,7 +241,6 @@ html {
           &-1 {
             right: 610px;
             top: 70px;
-            z-index: 2;
             &::before {
               border: 1px solid #fff;
               content: '';
@@ -244,8 +251,8 @@ html {
               top: -13px;
               left: -43px;
               color: white;
-              z-index: 1;
               transition: .8s;
+              z-index: 1;
             }
             &:hover::before {
               transform: rotate(25deg); 
@@ -279,6 +286,22 @@ html {
           &-4 {
             left: 610px;
             top: 70px;
+            &::before {
+              border: 1px solid #fff;
+              content: '';
+              width: 300px; //125
+              height: 53px; //33
+              position: absolute;
+              border-radius: 100%;
+              top: -13px;
+              left: -43px;
+              color: white;
+              z-index: 1;
+              transition: .8s;
+            }
+            &:hover::before {
+              transform: rotate(15deg);
+            }
           }
           &-5 {
             left: 680px;
@@ -332,8 +355,7 @@ html {
       gap: 10px;
       .case {
         width: 100%;
-        height: 50px;
-        background-color: #fff;
+        border-radius: 10px;
       }
     }
     .form-section {
@@ -347,12 +369,15 @@ html {
       .info {
         width: 100%;
         .heading {
-          font-family: Beauty Culture Sans Demo;
+          font-family: Beauty;
           font-size: 64px;
           font-weight: 400;
           line-height: 70px;
           letter-spacing: 0em;
           text-align: left;
+          @media (min-width: 1370) {
+            font-size: 50px;
+          }
           span {
             // color: linear-gradient(91.66deg, # 0.65%, #FF5858 99.8%);
             // background: -webkit-linear-gradient(90deg, #F857A6, #FF5858);
@@ -381,9 +406,29 @@ html {
           font-size: 24px;
           line-height: 33px;
           color: #878787;
+          margin-bottom: 20px;
+          &:last-child {
+            margin: 0;
+          }
         }
         textarea {
+          display: flex;
           color: white;
+          resize: none;
+          overflow-y: scroll;
+          overflow-x: hidden;
+        }
+        .button {
+          background: #FFFFFF;
+          border-radius: 10px;
+          padding: 15px 35px;
+          font-family: 'Avenir';
+          font-style: normal;
+          font-weight: 900;
+          font-size: 24px;
+          line-height: 33px;
+          color: #111;
+          border:none;
         }
       }
     }
@@ -398,9 +443,33 @@ html {
   box-sizing: border-box;
 }
 
+
+.popup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 60px 0;
+  img {
+    max-width: 100%;
+    position: inherit;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+.wrapper {
+  position: fixed;
+  // width: 100wv;
+  top: 0;
+  // left: 50%;
+  // transform: translateX(-50%);
+}
+
 // cursor
 .cursor {
-  z-index: 100;
+  z-index: 999999;
   position: absolute;
   top: 0;
   left: 0;
@@ -414,36 +483,37 @@ html {
   transition: .3s;
   transition-property: background-image;
   transform: translate(-50%, -50%);
-  &-hover-link {
-    opacity: 0.6;
-    transition-property: background-color, opacity, height, width, border-radius, background-image;
-    background: center no-repeat;
-    background-color: #FFFFFF;
-    background-image: url("../../img/hover.svg");
-    height: 70px;
-    width: 70px;
-    border-radius: 0;
-  }
-  &-hover-star {
+  &-hover {
     opacity: 1;
     transition: 0s;
     transition-property: background-color, background-image;
     background-color: transparent;
     // transition-property: opacity, height, width, border-radius, background-image;
     background: center no-repeat;
-    background-image: url("../../img/star.svg");
     height: 70px;
     width: 70px;
     border-radius: 50%;
   }
-    &-hover-user-friendly {
-    opacity: 0.6;
-    transition-property: opacity, height, width, border-radius, background-image;
-    background: center no-repeat;
+  &-hover-link {
+    background-image: url("../../img/link.svg");
+  }
+  &-hover-unique {
+    background-image: url("../../img/unique.svg");
+  }
+  &-hover-user-friendly {
     background-image: url("../../img/user-friendly.svg");
-    height: 60px;
-    width: 60px;
-    border-radius: 40%;
+  }
+  &-hover-inspiring {
+    background-image: url("../../img/inspiring.svg")
+  }
+  &-hover-response {
+    background-image: url("../../img/response.svg");
+  }
+  &-hover-beautiful {
+    background-image: url("../../img/beautiful.svg");
+  }
+  &-hover-fast {
+    background-image: url("../../img/fast.svg");
   }
 }
 .cursor.click {
