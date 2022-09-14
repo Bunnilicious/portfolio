@@ -80,9 +80,8 @@
         </div>
       </header>
       <main class="main">
-        <div class="content">
+        <!-- <div class="content">
           <section class="intro">
-            <!-- <div class="cursor"></div> -->
             <div class="font-container font-container-1">
               <span class="item _link "> Landing Page</span>
             </div>
@@ -93,7 +92,7 @@
               <span class="item _link"> Web applications</span>
             </div>
           </section>
-        </div>
+        </div> -->
         <div class="string-1">
           <div class="info">
             <span class="span ">prototyping</span>
@@ -102,7 +101,7 @@
             <span class="span ">Product design</span>
             <span class="span ">Logotypes</span>
           </div>
-      </div>
+        </div>
       <div class="content">
         <section class="plusses">
           <h2>we make everything</h2>
@@ -178,19 +177,19 @@
               </div>
               <div class="description">Our company will help to solve any problems related to design</div>
             </div>
-            <form action="sendmail.php" method="POST" class="form" id="form">
-              <input type="text" placeholder="Name" class="input _edit _req" />
-              <input type="text" placeholder="Phone" class="input _edit _req" id="phone" oninput="phoneHandler(this)"/>
-              <input type="text" placeholder="E-mail" class="input _edit _req" />
+            <form action="./telegram.php" method="POST" class="form" id="form">
+              <input type="text" placeholder="Name" name="user_name" class="input _edit _req" />
+              <input type="text" placeholder="Phone" name="user_phone" class="input _edit _req" id="phone" oninput="phoneHandler(this)"/>
+              <input type="text" placeholder="E-mail" name="user_email" class="input _edit _req" />
               <textarea
-                name=""
+                name="user_txt"
                 id=""
                 cols="1"
                 rows="3"
                 class="input _edit _req"
                 placeholder="Message"
               ></textarea>
-              <button type="submit" value="Send" class="button _nomix _mail" />
+              <button type="submit" class="button _nomix _mail" >Send</button>
               <div class="policy">By clicking the «send» button you accept the terms of the <span class="_pointer"> policy</span></div>
             </form>
           </div>

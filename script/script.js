@@ -137,83 +137,95 @@ window.addEventListener('mouseover', (event) => {
 
 // ========= form send =========
 
-const form = document.getElementById('form');
-form.addEventListener('submit', formSend);
+// const form = document.getElementById('form');
+// form.addEventListener('submit', formSend);
 
 const phoneHandler = (e) => {
   const value = e.value;
   e.value = value.replace(/\D/g, '');
 };
 
-async function formSend(e) {
-  e.preventDefault();
-  formValidate(form);
+// async function formSend(e) {
+//   e.preventDefault();
+//   formValidate(form);
 
-  let formData = new FormData(form);
+//   let formData = new FormData(form);
 
-  function formValidate(form) {
-    let error = 0;
-    let formReq = document.querySelectorAll('._req');
+//   function formValidate(form) {
+//     let error = 0;
+//     let formReq = document.querySelectorAll('._req');
 
-    for (let index = 0; index < formReq.length; index++) {
-      const element = formReq[index];
-      removeErrorClass(element);
-      // console.log(element.placeholder);
+//     for (let index = 0; index < formReq.length; index++) {
+//       const element = formReq[index];
+//       removeErrorClass(element);
+//       // console.log(element.placeholder);
 
-      element.addEventListener('click', () => {
-        element.classList.remove('_error');
-        error = 0;
-      });
+//       element.addEventListener('click', () => {
+//         element.classList.remove('_error');
+//         error = 0;
+//       });
 
-      if (
-        (element.placeholder == 'E-mail' &&
-          (element.value.indexOf('@') == -1 ||
-            element.value.indexOf('.') == -1 ||
-            element.value.length < 5)) ||
-        element.value.length == ''
-      ) {
-        addErrorClass(element);
-        error++;
-      }
-      if (element.placeholder == 'Phone' && element.value.length <= 7) {
-        addErrorClass(element);
-        error++;
-      }
-    }
-  }
-  if (error == 0) {
-    let response = await fetch('sendmail.php', {
-      method: 'POST',
-      body: formData,
-    });
-    if (response.ok) {
-      let result = await response.json();
-      alert(result.message);
-    } else {
-      alert('fail');
-    }
-  }
-  function addErrorClass(input) {
-    input.classList.add('_error');
-  }
-  function removeErrorClass(input) {
-    input.classList.remove('_error');
-  }
-}
+//       if (
+//         (element.placeholder == 'E-mail' &&
+//           (element.value.indexOf('@') == -1 ||
+//             element.value.indexOf('.') == -1 ||
+//             element.value.length < 5)) ||
+//         element.value.length == ''
+//       ) {
+//         addErrorClass(element);
+//         error++;
+//       }
+//       if (element.placeholder == 'Phone' && element.value.length <= 7) {
+//         addErrorClass(element);
+//         error++;
+//       }
+//     }
+//   }
+//   if (error == 0) {
+//     let response = await fetch('sendmail.php', {
+//       method: 'POST',
+//       body: formData,
+//     });
+//     if (response.ok) {
+//       let result = await response.json();
+//       alert(result.message);
+//     } else {
+//       alert('fail');
+//     }
+//   }
+//   function addErrorClass(input) {
+//     input.classList.add('_error');
+//   }
+//   function removeErrorClass(input) {
+//     input.classList.remove('_error');
+//   }
+// }
 
 // ========= circle text =========
 
 const circularText = (txt, radius, id) => {
+  async function addActiveClass(letterNumber, time) {
+    const letter = document.querySelector('[data-letter="' + letterNumber + '"]');
+    console.log(letter);
+    await setTimeout(() => {
+      letter.classList.add('letter-active');
+    }, time);
+  }
+
   txt = txt.split('');
   let object = document.getElementById(id);
 
   let deg = 360 / txt.length;
   let origin = 0;
-
+  let letterCounter = 0;
   txt.forEach((letter) => {
-    letter = `<span class="letter" style='height:${radius}px;position:absolute;transform:rotate(${origin}deg);transform-origin:0 100%;'>${letter}</span>`;
+    letter = `<span data-letter=${letterCounter} class="letter" style='animation-delay:  ${
+      letterCounter / 10
+    }s;height:${radius}px;position:absolute;color:transparent;transform:rotate(${origin}deg);transform-origin:0 100%;'>${letter}</span>`;
     object.innerHTML += letter;
     origin += deg;
+    addActiveClass(letterCounter, 999);
+    letterCounter++;
   });
 };
 
